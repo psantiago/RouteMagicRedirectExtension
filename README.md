@@ -20,7 +20,6 @@ With this route config, <code>Home/LivingRoom?furniture=Couch</code> will automa
 Additionally, we can supply an action to run during a redirection:
 
     routes.Redirect(r => r.MapRoute("Default", "{controller}/{action}/{id}", defaults), onRedirectAction: SomeImportantAction).To(newRoute);
-        }
         
     ...
     
