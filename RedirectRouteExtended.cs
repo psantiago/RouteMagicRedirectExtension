@@ -112,14 +112,15 @@ namespace RouteMagicRedirectExtension
 
         public new IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
+            //run the onredirection action. For example, this can be used to log that the redirection ocurred,
+            //or add additional route data at redirection-time.
+            if (OnRedirectAction != null) OnRedirectAction(requestContext, this);
+
             var requestRouteValues = requestContext.RouteData.Values;
 
             var routeValues = AdditionalRouteValues.Merge(requestRouteValues);
 
             var vpd = TargetRoute.GetVirtualPath(requestContext, routeValues);
-
-            //run the onredirection action. For example, this can be used to log that the redirection ocurred.
-            if (OnRedirectAction != null) OnRedirectAction(requestContext, this);
 
             if (vpd != null)
             {
