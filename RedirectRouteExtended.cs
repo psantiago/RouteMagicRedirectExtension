@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Routing;
 using RouteMagic;
@@ -133,6 +134,8 @@ namespace RouteMagicRedirectExtension
                 {
                     targetUrl += "?" + queryString;
                 }
+
+                targetUrl = HttpUtility.UrlEncode(targetUrl);
 
                 return new RedirectHttpHandler(targetUrl, Permanent, isReusable: false);
             }
