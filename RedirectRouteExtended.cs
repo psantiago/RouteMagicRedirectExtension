@@ -129,13 +129,11 @@ namespace RouteMagicRedirectExtension
 
                 //add query strings
                 var qsHelper = requestContext.HttpContext.Request.QueryString;
-                var queryString = String.Join("&", qsHelper.AllKeys.Select(i => i + "=" + qsHelper[i]));
+                var queryString = String.Join("&", qsHelper.AllKeys.Select(i => HttpUtility.UrlEncode(i) + "=" + HttpUtility.UrlEncode(qsHelper[i])));
                 if (!string.IsNullOrWhiteSpace(queryString))
                 {
-                    targetUrl += "?" + queryString;
+                    targetUrl += "?" +  queryString;
                 }
-
-                targetUrl = HttpUtility.UrlEncode(targetUrl);
 
                 return new RedirectHttpHandler(targetUrl, Permanent, isReusable: false);
             }
